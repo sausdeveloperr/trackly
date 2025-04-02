@@ -1,0 +1,21 @@
+{
+  "short_name": "Trackly",
+  "name": "Trackly app",
+  "start_url": "/trackly/",
+  "scope": "/trackly/",
+  "display": "standalone",
+  "theme_color": "#0e5c78",
+  "background_color": "#f5f5f5",
+  "icons": [
+    {
+      "src": "/trackly/media/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/trackly/media/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

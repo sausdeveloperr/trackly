@@ -1,0 +1,547 @@
+*::before, *::after, * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    padding: 0;
+}
+
+body {  
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;  
+    font-weight: 400;  
+    font-style: normal;  
+    transition: all 500ms ease-in-out;
+} 
+
+/* css variables */
+:root {  
+    --bg-app-light: #f5f5f5;   
+    --bg-app-dark: #333;  
+    --bg-pry: #ECFEFF;  
+    
+    /* green variant */
+    --bg-gradient-dark: #0f5e7a;
+    --bg-gradient-light: #107ea6;
+    --bg-icons:  #0e5c78;
+
+    --icons-shadow: #bfbdc2;
+    --cntr-shadow: #d7d7da;     
+    --cntr-shadow-dark: #2a2a2a;   
+}  
+
+/* scrollbar css */
+::-webkit-scrollbar {  
+    width: 7px; 
+} 
+
+::-webkit-scrollbar-thumb {  
+    background-color: #888; 
+    border-radius: 6px; 
+    transition: all 500ms ease-in-out;
+}  
+
+::-webkit-scrollbar-track {  
+    display: block;
+    background-color: inherit;
+}  
+
+/* main app css */
+#tracklyApp {
+    background-color: inherit;
+}
+
+.title {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-size: 1.75rem;
+    padding-bottom: .5em;
+    color: white;
+}
+
+.container  {
+    width: clamp(350px,50%,900px);
+    margin: 1.75em auto;
+    padding: 2em 1em;
+    padding-bottom: 0em;
+    border-radius: 15px;
+    background: linear-gradient(var(--bg-gradient-light), var(--bg-gradient-dark));
+    transition: all 500ms ease-in-out;  
+}
+
+.tracklyPad {
+    padding: 1em .5em;
+    margin-bottom: 0em;
+    background-color: white;    
+    border-radius: 7.5px;
+    border: var(--bg-pry) 2px solid;
+    box-shadow: 20px 20px #151525 300px;
+}
+
+.template {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap:.5em;
+    padding: .5em .25em;
+    margin: .5em 0;
+    transition: all 300ms ease-in-out;
+}
+
+.template:hover {
+    scale: 1.025;
+}
+
+.taskWrapper {
+    display: flex; 
+    width: 80%; 
+    padding: 0;
+}
+
+.template input {
+    all: unset;
+    font-family: inherit;
+    width: 100%;
+    padding: 0; 
+    margin: 0;
+    border: none;
+    border-bottom: #15152525 2px solid;
+    border-radius: 2.5px;
+    transition: all 300ms ease-in-out;
+    color: black;
+}
+
+.template input:focus {
+    outline: none;
+    border-bottom: #15152550 2px solid;
+}
+
+.taskWrapper input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset !important;
+    color: black !important;
+    background-color: white !important;
+}
+
+button {
+    background-color: var(--bg-icons);
+    border: var(--bg-icons);
+    padding: .5em;
+    cursor: pointer;
+    border-radius: 55px;
+    transition: all 300ms ease-in-out;
+}
+
+svg {
+    vertical-align: middle;
+}
+
+button:not(.newDiv button, .guideBtn):hover {
+    box-shadow: var(--icons-shadow) 3px 3px 20px;
+}
+
+button:active {
+    scale: .9;
+}
+
+.newDiv {
+    display: flex;  
+    justify-content: center;
+}
+
+#newBtn {
+    margin: 0 auto;
+    box-shadow: #151525b2 1px 10px 10px;
+    transform: translateY(-50%);
+    transition: all 50ms ease-in-out;
+}
+
+/* toggle classes */
+.markdone {
+    text-decoration: line-through 2px #151525; 
+}
+
+.hidden {
+    display: none;
+}
+
+/*🐞 theres a bug here. just kidding, its the extra features */ 
+/* progress bar */
+.progressBarWrapper {
+    width: 100%;
+    border-radius: 15px;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+}
+
+#progressBar {
+    display: block;
+    font-size: 0.1953125rem;
+    letter-spacing: .0625px;
+    border-radius: 10px;
+    width: 0%;
+    transition: width ease 1.5s, color ease 50ms;
+    background: linear-gradient(to right, #3cb5ce, #0c5d75, #2fafc0); 
+    background-size: 200% 100%;
+    animation: glowing 4s linear infinite;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 200% 0; 
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* tool buttons */
+.toolsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolsActionMenu {
+    position: relative;
+    height: fit-content;
+}
+  
+.toolPlatforms {
+    position: absolute;
+    right: -125%;
+    display: flex;
+    gap: 0.5em;
+    opacity: 0;
+    z-index: -1;
+    transform: translateX(10%);
+    transition: all ease-in-out 300ms;
+}
+  
+.toolPlatforms.isOpen {
+    opacity: 1;
+    z-index: 1;
+    transform: translateX(0%);
+}
+  
+#reset,
+#musicActionMenu, #pomodoro {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 300ms ease-in-out 100ms;
+}
+
+#help {
+    visibility: visible;
+}
+  
+#musicActionMenu {
+    transition-delay: 200ms;
+}
+  
+#reset {
+    transition-delay: 100ms;
+}
+  
+#pomodoro {
+    transition-delay: 50ms;
+}
+  
+#reset.show,
+#musicActionMenu.show,
+#pomodoro.show {
+    opacity: 1;
+    transform: translateX(0%);
+}
+  
+#toolsBtn {
+    transition: all 300ms ease;
+}
+  
+#toolsBtn.move {
+    transform: translateX(250%);
+}
+  
+#spotify {  
+    background-color: #1dcd5b;  
+    color: #fcfcfc;  
+}  
+
+#spotify:hover {  
+    background-color: #1dcd5b;  
+    box-shadow: #1dcd5b90 0px 0px 7.5px;  
+}  
+
+#apple {  
+    background-color: #000;  
+    border-radius: 30%;  
+    color: #fcfcfc;  
+}  
+
+#apple:hover {  
+    background-color: #000;  
+    box-shadow: #00000080 0px 0px 7.5px;  
+}  
+
+#youtube {  
+    background-color: #fe0808;  
+    color: #fff;  
+    padding: .25em;  
+}  
+
+#youtube:hover {  
+    background-color: #fe0808;  
+    box-shadow: #fe080890 0px 0px 7.5px;  
+}  
+  
+/* music button action menu */
+.musicActionMenu {
+    display: inline-block;
+    position: relative;
+    transition: all 300ms ease-in-out;
+}
+  
+.musicPlatforms {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    opacity: 0;
+    z-index: -1;
+    transform: translateY(-10%);
+    transition: all ease-in-out 300ms;
+}
+  
+.musicPlatforms.appIsOpen {
+    opacity: 1;
+    z-index: 1;
+    transform: translateY(0%);
+}
+  
+.musicPlatforms button {
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+}
+  
+#apple,
+#youtube {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 300ms ease-in-out 100ms;
+}
+  
+#youtube {
+    transition-delay: 200ms;
+}
+  
+#apple.show,
+#youtube.show {
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+/* background music player */
+.bgMusic  {
+    width: clamp(350px,50%,900px);
+    height: fit-content;
+    margin: 8em auto;
+    border-radius: 15px;
+    transition: all 500ms ease-in-out;
+}
+
+iframe {
+    opacity: 0;
+    box-shadow: none;
+    transition: all 300ms ease-in-out;
+}
+
+
+/* help button/app guide */
+.helpBox-content {  
+    font-family: "DM Sans", sans-serif;  
+    position: fixed;  
+    top: 0;   
+    left: 0;  
+    right: 0;  
+    z-index: 2;  
+    visibility: hidden;
+    opacity: 0;
+    margin: 1em auto;
+    padding-top: 0;  
+    border-radius: 15px;  
+    height: 85vh;
+    width: 80%;  
+    max-width: 800px;  
+    overflow: scroll;
+    transform: scale(0.7);
+    transition: all 300ms ease-in-out;  
+    border: solid var(--bg-gradient-light);
+}  
+
+.helpBox-content.active {  
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}  
+
+.helpBox-content::-webkit-scrollbar {  
+    display: none;
+}  
+
+.helpBox-content {  
+    scrollbar-width: none;
+}  
+
+.contentHeader {
+    position: sticky;  
+    top: 0; 
+    z-index: 3;
+    margin-bottom: 1em;  
+    padding: .5em;
+    background-color: inherit;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.contentHeader::before {  
+    content: '';  
+    position: absolute;  
+    left: 0;  
+    right: 0;  
+    bottom: 0;
+    background-color: inherit;
+    height: .25px;
+    box-shadow: 0 4px 10px 1.6px #0000004c;
+}  
+
+.helpBox-close {  
+    float: right;  
+    cursor: pointer;  
+    font-weight: bold;  
+}   
+
+.content {
+    z-index: 2;
+    padding: 0 1.5em;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.helpBox-title {  
+    text-align: center;  
+}  
+
+.guideBtn {
+    pointer-events: none;
+    scale: .5;
+    vertical-align:super;
+}
+
+.helpBox-subtitle {  
+    color: var(--bg-gradient-light);  
+    margin-top: 1em;  
+    margin-bottom: 0.5em;  
+}  
+
+.helpBox-list {  
+    list-style-type: disc;  
+    margin-left: 1.25em;  
+} 
+
+.helpBox-list strong {
+    text-decoration: underline;
+}
+
+.helpBox-section {  
+    margin-bottom: 1.5em;  
+}  
+
+.rateAppBox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5em;  
+}
+
+#rateApp {  
+    background-color: var(--bg-icons);  
+    color: #fff; 
+    padding: 0.75em 1.5em;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: all 300ms ease-in-out;
+}   
+
+#rateApp:hover {
+    transform: translateY(-3%);
+    box-shadow: #107ea660 0px 5px 15px 2.5px; 
+}
+
+
+/* color schemes */
+@media (prefers-color-scheme: dark) {  
+    body {  
+        background-color: var(--bg-app-dark);  
+        border: solid 1px var(--bg-app-dark);  
+    }  
+
+    ::-webkit-scrollbar-thumb {  
+        background-color: #f2f2fa; 
+        border-radius: 6px; 
+    } 
+
+    .container, .bgMusic>iframe {
+        box-shadow: var(--cntr-shadow-dark) .5px .5px 50px 20px;
+    }
+
+    #progressBar {
+        color: var(--bg-app-dark);
+    }
+
+    #toolsBtn:hover, #music:hover, #reset:hover,
+     #pomodoro:hover, #help:hover {  
+        box-shadow: #191818 1px 10px 15px; 
+    } 
+    
+    .helpBox-content {
+        background-color: #141414;  
+        color: #eee;  
+        box-shadow: var(--cntr-shadow-dark) 3px 10px 10px 10px;
+    }
+
+    .helpBox-close svg {
+        fill: #eee; 
+    }
+
+    .contentHeader::before {  
+        box-shadow: 0 4px 10px 1.6px #000000;
+    }  
+}  
+
+@media (prefers-color-scheme: light) {  
+    body {   
+        background-color: var(--bg-app-light);  
+        border: solid 1px var(--bg-app-light);  
+    }  
+
+    .container, .bgMusic>iframe, .helpBox-content {
+        box-shadow: var(--cntr-shadow) .5px .5px 50px 20px;
+    } 
+
+    #progressBar {
+        color: var(--bg-app-light);
+    }
+
+    .helpBox-content {
+        background-color: #fff;  
+        color: #000;  
+        box-shadow: var(--cntr-shadow) 0px 10px 10px 5px;
+    }
+}
