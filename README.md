@@ -17,8 +17,10 @@ Trackly is a simple yet effective task-tracking web app designed to help users m
 - **PWA Features:** Web App Manifest, Service Worker
 
 ## 📸 Screenshots
-
-
+![Trackly_demo](https://github.com/user-attachments/assets/145d2c83-a417-48f5-a5a1-4681b29a4f52)
+![Trackly_demo_dark](https://github.com/user-attachments/assets/85a00cee-80f6-4c91-bd98-67ab214c1d32)
+![Trackly_demo_mobile](https://github.com/user-attachments/assets/48676108-1b1d-42f5-af05-fca645b2711d)
+![Trackly_plus_spotify](https://github.com/user-attachments/assets/bca49e61-e0a3-4dba-8694-92d40522572e)
 
 ## 📦 Installation
 
