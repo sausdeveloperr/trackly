@@ -157,11 +157,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const youtubeState = JSON.parse(localStorage.getItem('youtubeState'))?.playing;  
     spotifyState ? playSpotify() : appleState ? playAppleMusic() : youtubeState ? playYoutubeMusic() : null;
 
-    // first visit app guide
-    if (!localStorage.getItem('hasVisited')) {
-        helpModal.classList.add('active'); 
-        localStorage.setItem('hasVisited', 'true');
-    }    
+    // app guide
+    const visitCount = localStorage.getItem('visitCount') || 0;
+    setTimeout ( () => {
+        if (visitCount < 3) {
+            helpModal.classList.add('active'); 
+            localStorage.setItem('visitCount', `${visitCount + 1}`);
+        }  
+    }, 2000)      
 });
 
 
