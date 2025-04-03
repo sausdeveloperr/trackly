@@ -156,6 +156,12 @@ window.addEventListener("DOMContentLoaded", () => {
     const appleState = JSON.parse(localStorage.getItem('appleState'))?.playing;  
     const youtubeState = JSON.parse(localStorage.getItem('youtubeState'))?.playing;  
     spotifyState ? playSpotify() : appleState ? playAppleMusic() : youtubeState ? playYoutubeMusic() : null;
+
+    // first visit app guide
+    if (!localStorage.getItem('hasVisited')) {
+        helpModal.classList.add('active'); 
+        localStorage.setItem('hasVisited', 'true');
+    }    
 });
 
 
